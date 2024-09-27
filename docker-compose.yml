@@ -18,7 +18,7 @@ services:
     environment:
       DB_USERNAME: username
       DB_PASSWORD: password
-      DB_HOST: wikiscrape
+      DB_HOST: localhost
       DB_PORT: 5432
 
     depends_on:
