@@ -6,10 +6,6 @@ on:
     types:
       - completed
 
-defaults:
-  run:
-    working-directory: scrape
-
 jobs:
   build:
     name: Deployment
@@ -40,6 +36,7 @@ jobs:
       - name: Build and push the Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
+          directory: scrape
           image: wikiscrape-scrape
           tags: latest, v1
           registry: ghcr.io
