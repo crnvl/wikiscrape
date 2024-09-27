@@ -7,10 +7,21 @@ pub struct Article {
     pub links_to: Vec<String>,
 }
 
-pub async fn connect() -> Pool<Postgres> {
+pub async fn connect(
+    username: String,
+    password: String,
+    host: String,
+    port: String,
+) -> Pool<Postgres> {
     let connect_result = sqlx::postgres::PgPoolOptions::new()
         .max_connections(5)
-        .connect("postgres://postgres:wikiscrape@localhost:5432")
+        .connect(
+            format!(
+                "postgres://{}:{}@{}:{}/postgres",
+                username, password, host, port
+            )
+            .as_str(),
+        )
         .await;
 
     match connect_result {

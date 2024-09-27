@@ -1,5 +1,3 @@
-use std::thread::JoinHandle;
-
 use log::{error, info};
 use sqlx::{Pool, Postgres};
 

@@ -6,6 +6,10 @@ on:
     types:
       - completed
 
+defaults:
+  run:
+    working-directory: scrape
+
 jobs:
   build:
     name: Deployment
