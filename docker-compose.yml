@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   database:
     image: 'postgres:latest'
@@ -7,18 +5,19 @@ services:
       - 5432:5432
 
     environment:
-      POSTGRES_USER: root
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: wikiscrape
 
+    network_mode: "bridge"
+
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: [ "CMD-SHELL", "pg_isready", "-U", "postgres" ]
       interval: 5s
-      timeout: 60s
       retries: 5
-      start_period: 5s 
 
     volumes:
-      - ${PWD}/db-data/:/var/lib/postgresql/data/
+      - ${PWD}/db:/var/lib/postgresql/data
+
 
   scraper:
     image: "ghcr.io/crnvl/wikiscrape-scrape:latest"
@@ -27,6 +26,8 @@ services:
       DB_PASSWORD: wikiscrape
       DB_HOST: localhost
       DB_PORT: 5432
+
+    network_mode: "host"
 
     depends_on:
       database:
