@@ -22,4 +22,5 @@ services:
       DB_PORT: 5432
 
     depends_on:
-      - database
+      database:
+        condition: service_healthy
