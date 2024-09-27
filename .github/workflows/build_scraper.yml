@@ -37,6 +37,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
           dockerfile: scrape/Dockerfile
+          directory: scrape
           image: wikiscrape-scrape
           tags: latest, v1
           registry: ghcr.io
