@@ -17,7 +17,7 @@ pub async fn connect(
         .max_connections(5)
         .connect(
             format!(
-                "postgres://{}:{}@{}:{}/postgres",
+                "postgres://{}:{}@{}:{}/",
                 username, password, host, port
             )
             .as_str(),

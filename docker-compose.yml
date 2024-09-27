@@ -7,17 +7,24 @@ services:
       - 5432:5432
 
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: wikiscrape
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: wikiscrape
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 60s
+      retries: 5
+      start_period: 5s 
+
     volumes:
       - ${PWD}/db-data/:/var/lib/postgresql/data/
 
   scraper:
     image: "ghcr.io/crnvl/wikiscrape-scrape:latest"
     environment:
-      DB_USERNAME: username
-      DB_PASSWORD: password
+      DB_USERNAME: postgres
+      DB_PASSWORD: wikiscrape
       DB_HOST: localhost
       DB_PORT: 5432
 
