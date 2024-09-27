@@ -114,6 +114,7 @@ async fn lookup_article(article_url: &str, article_name: String) -> Article {
     db::Article {
         title: article_name,
         url: article_url.to_string(),
+        content: article.text().collect::<String>(),
         links_to: unique_links.iter().map(|link| link.to_string()).collect(),
     }
 }
