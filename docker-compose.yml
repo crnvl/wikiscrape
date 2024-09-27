@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  database:
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: wikiscrape
+    volumes:
+      - ${PWD}/db-data/:/var/lib/postgresql/data/
+
+  scraper:
+    image: "ghcr.io/crnvl/wikiscrape-scrape:latest"
+    environment:
+      DB_USERNAME: username
+      DB_PASSWORD: password
+      DB_HOST: wikiscrape
+      DB_PORT: 5432
+
+    depends_on:
+      - database
